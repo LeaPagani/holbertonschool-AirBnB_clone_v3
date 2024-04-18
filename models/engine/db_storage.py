@@ -70,6 +70,17 @@ class DBStorage:
             return self.__session.query(cls).get(id)
         return None
     
+    def count(self, cls=None):
+        """Method to count the number of objects in storage"""
+        if cls:
+            return self.__session.query(cls).count()
+        else:
+            all_classes = [State, City, User, Place, Review, Amenity]
+            total_count = 0
+            for cls in all_classes:
+                total_count += self.__session.query(cls).count()
+            return total_count
+    
     def reload(self):
         """reloads data from the database"""
         Base.metadata.create_all(self.__engine)
