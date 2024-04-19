@@ -11,8 +11,8 @@ from models import storage
 from . import app_views
 from flask import jsonify
 
-@app_views.route('/status', methods=['GET'])
-def status():
+@app_views.route('/stats', methods=['GET'])
+def stats():
     """Return the status of the API."""
     classes = {
         "amenities": Amenity,
@@ -22,5 +22,5 @@ def status():
         "states": State,
         "users": User
     }
-    status = {cls_key: storage.count(cls_val) for cls_key, cls_val in classes.items()}
-    return jsonify(status)
+    stats = {cls_key: storage.count(cls_val) for cls_key, cls_val in classes.items()}
+    return jsonify(stats)
