@@ -13,3 +13,9 @@ def get_all_states():
     return jsonify(all_states)
 
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
+def get_state(state_id):
+    """Return a State object."""
+    state = storage.get(State, state_id)
+    if state is None:
+        return jsonify({"error": "Not found"}), 404
+    return jsonify(state.to_dict())
