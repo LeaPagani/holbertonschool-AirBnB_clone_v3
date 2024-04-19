@@ -24,5 +24,10 @@ def get_state(state_id):
 def delete_state(state_id):
     """Delete a State object."""
     state = storage.get(State, state_id)
+    if state is None:
+        return jsonify({"error": "Not found"}), 404
+    storage.delete(state)
+    storage.save()
+    return jsonify({}), 200
     
     
