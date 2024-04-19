@@ -7,6 +7,7 @@ from models import storage
 from api.v1.views import app_views
 from flask import jsonify, request, abort
 
+
 @app_views.route('/states/<state_id>/cities',
                  methods=['GET'], strict_slashes=False)
 def get_cities(state_id):
@@ -37,17 +38,25 @@ def delete_city(city_id):
     storage.save()
     return jsonify({}), 200
 
-@app_views.route('/states', methods=['POST'], strict_slashes=False)
-def create_state():
-    """Create a new State object."""
-    if not request.json:
-        return jsonify({"error": "Not a JSON"}), 400
-    if 'name' not in request.json:
-        return jsonify({"error": "Missing name"}), 400
-    nstate = State(**request.get_json())
-    storage.new(nstate)
-    storage.save()
-    return jsonify(nstate.to_dict()), 201
+
+@app_views.route('/states/<state_id>/cities',
+                 methods=['POST'], strict_slashes=False)
+def create_city(state_id):
+    """Create a new City object."""
+    state = storage.get(State, state_id)
+    if not state:
+        abort(404)
+    data = request.get_json()
+    if not data:
+        abort(400, description="Not a JSON")
+    if 'name' not in data:
+        abort(400, description="Missing name")
+    data['state_id'] = state_id
+    city = City(**data)
+    city.save()
+    return jsonify(city.to_dict()), 201
+
+
     
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
@@ -63,3 +72,19 @@ def update_state(state_id):
             setattr(state, key, value)
     storage.save()
     return jsonify(state.to_dict()), 200
+
+
+@app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
+def update_city(city_id):
+    """Update a City object."""
+    city = storage.get(State, state_id)
+    if city is None:
+        return jsonify({"error": "Not found"}), 404
+    if not request.json:
+        return jsonify({"error": "Not a JSON"}), 400
+    ignore_keys = ['id', 'created_at', 'updated_at']
+    for key, value in request.json.items():
+        if key not in ignore_keys:
+            setattr(city, key, value)
+    storage.save()
+    return jsonify(city.to_dict()), 200
