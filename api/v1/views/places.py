@@ -59,3 +59,21 @@ def delete_place(place_id):
     storage.save()
     return jsonify({}), 200
 
+@app_views.route('/places/<place_id>', methods=['PUT'], strict_slashes=False)
+def update_place(place_id):
+    """Update a Place object."""
+    place = storage.get(Place, place_id)
+    if place is None:
+        abort(404)
+
+    if not request.is_json:
+        abort(400, "Not a JSON")
+    for key, value in request.get_json().items():
+        if key not in ["id", "user_id", "city_id", "created_at", "updated_at"]:
+            setattr(place, key, value)
+    storage.save()
+    return jsonify(place.to_dict()), 200
+
+        
+    
+
