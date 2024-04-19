@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module generates views for State objects."""
+""" This module generates views for State objects."""
 
 from models.state import State
 from models import storage

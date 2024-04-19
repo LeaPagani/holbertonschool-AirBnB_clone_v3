@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module generates views for State objects."""
+""" This module handles API actions for Cities """
 
 from models.city import City
 from models.state import State
