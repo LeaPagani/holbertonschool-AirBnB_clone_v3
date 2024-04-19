@@ -7,7 +7,9 @@ from api.v1.views import app_views
 from flask import jsonify
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
-def get_states():
+def get_all_states():
     """Return a list of all State objects."""
-    states = [state.to_dict() for state in storage.all(State).values()]
-    return jsonify(states)
+    all_states = [state.to_dict() for state in storage.all(State).values()]
+    return jsonify(all_states)
+
+@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
