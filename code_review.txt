@@ -1,0 +1,1 @@
+Merge added two new methods successfully for task 3.
