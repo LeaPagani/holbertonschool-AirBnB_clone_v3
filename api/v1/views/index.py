@@ -11,10 +11,14 @@ from models import storage
 from . import app_views
 from flask import jsonify
 
+@app_views.route('/status', methods=['GET'])
+def status():
+    """Return the status of the API."""
+    return jsonify({"status": "OK"})
 
 @app_views.route("/stats", methods=["GET"])
 def stats():
-    """Return the status of the API."""
+    """Return the status of the API in this format."""
     classes = {
         "amenities": Amenity,
         "cities": City,
