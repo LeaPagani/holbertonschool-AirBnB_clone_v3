@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""This module generates views for Place objects."""
 from flask import jsonify, request, abort
 from models import storage
 from models.place import Place
