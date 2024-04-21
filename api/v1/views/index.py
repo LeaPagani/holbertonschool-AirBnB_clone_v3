@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""Index view for API v1."""
 
 from models.amenity import Amenity
 from models.city import City
