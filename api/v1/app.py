@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Contains the app object."""
 from flask import Flask, make_response, jsonify
 from models import storage
 from api.v1.views import app_views  # Ensure Blueprint is fully initialized before import
