@@ -69,7 +69,7 @@ class DBStorage:
         if cls and id:
             return self.__session.query(cls).get(id)
         return None
-    
+
     def count(self, cls=None):
         """Method to count the number of objects in storage"""
         if cls:
@@ -80,7 +80,7 @@ class DBStorage:
             for cls in all_classes:
                 total_count += self.__session.query(cls).count()
             return total_count
-    
+
     def reload(self):
         """reloads data from the database"""
         Base.metadata.create_all(self.__engine)
