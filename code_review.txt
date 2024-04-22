@@ -1,1 +1,1 @@
-A pull was made.
+A pull was made to inspect changes after moving a file from a newly created branch to the main branch. The sytnax was corrected slightly but overall it looks ok.
